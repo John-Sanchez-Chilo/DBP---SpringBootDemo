@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Visualizar</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function() {
+	    var content = "";
+	    $.ajax({
+		    url: "http://localhost:8080/CategoryRestService/FindAll"
+	    }).then(function(data) {
+		    $.each(data, function(i, obj){
+			    var item = "<tr><th scope='row'>" + obj.id + "</th>" +
+    						"<td>" + obj.whenCreated + "</td>" +
+    						"<td>" + obj.whenLastUpdated + "</td>" +
+    						"<td>" + obj.name + "</td>" +
+    						"<td>" + obj.description + "</td>";
+    		    content = content.concat(item);
+		    });
+		    $('.table-of-categories').append(content);
+	    });
+    });
+  </script>
+</head>
+<body>
+
+
+<h1>Visualizar</h1>
+
+
+<div class="container">
+  <table style="border: 1px solid black;">
+    <thead style="border:  1px solid black">
+      <tr style="border:  1px solid black">
+        <th style="border:  1px solid black" scope="col">   ID  </th> 
+        <th style="border:  1px solid black" scope="col">   Nombre  </th>
+        <th style="border:  1px solid black" scope="col">   Descripcion </th>
+      </tr>
+    </thead>
+    <tbody class="table-of-categories"></tbody>
+  </table>
+</div>
+<a href="index.html">Regresar</a>
+
+</body>
+</html>

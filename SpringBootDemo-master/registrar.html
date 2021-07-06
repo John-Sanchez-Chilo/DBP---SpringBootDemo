@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>Registrar</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+	    $("#submit").click(function(e) {
+		    e.preventDefault();
+		    var form_name = document.getElementById("name").value;
+		    var form_description = document.getElementById("description").value;
+		    var sendInfo = {
+			    "name": form_name,
+			    "description": form_description
+		    };
+		    console.log("Name: " + form_name + " Description: " + form_description);
+		    $.ajax({
+			    url: "http://localhost:8080/CategoryRestService/Add",
+			    type: 'PUT',
+			    dataType: "json",
+			    contentType : "application/json",
+			    data: JSON.stringify(sendInfo),
+			    success: function (msg) {
+                    if (msg) {
+                    alert(form_name + " successfully registered");
+                    console.log("Se registro : )");
+                    } else {
+                    alert("could not save " + form_name);
+                    console.log("No se pudo registrar");
+                    }
+                },
+		        });
+	        });
+        });
+    </script>
+</head>
+<body>
+
+  	<h1>Registrar</h1>
+	<div class="container">
+		<h2>Formulario de Categorías</h2>
+  		<form  method="put">
+    		<div>
+      			<label for="name">Nombre:</label>
+      			<div >          
+        			<input type="text"  id="name" placeholder="Ingrese el nombre" name="name">
+      			</div>
+    		</div>
+    		<div>
+      			<label  for="description">Descripción:</label>
+      			<div >          
+        			<input type="text"  id="description" placeholder="Ingrese la descripción" name="description">
+      			</div>
+    		</div>
+    		<div>        
+      			<div>
+        			<button id="submit" type="submit"  value="Agregar" name="agregar">Registrar</button>
+        			<button ><a href="index.html">Regresar</a></button>
+      			</div>
+    		</div>
+  		</form>
+	</div>
+</body>
+</html>
